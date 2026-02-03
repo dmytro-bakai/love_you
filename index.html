@@ -1665,44 +1665,44 @@
     });
 
     // --- Page 13 (Auto-submit) ---
-    function submitData() {
+    async function submitToSheet(payload) {
+        const URL = "https://script.google.com/macros/s/AKfycbxGpgZy5oAf3norVIjVujuwPa1B4C0e2sGHLOxUiq04BIt1pZDe84JAa3__ChD0dxq3/exec";
 
+        const res = await fetch(URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify({
+                ...payload,
+                ua: navigator.userAgent
+            })
+        });
+
+        return res.json();
+    }
+
+    async function submitData() {
         // Add timestamp
         data.timestamp = new Date().toISOString();
 
-        // Check if google.script.run is available (Google Apps Script environment)
-        if (typeof google !== 'undefined' && google.script && google.script.run) {
-            google.script.run
-                .withSuccessHandler((res) => {
-                    // Hide loader and update status
+        try {
+            const result = await submitToSheet(data);
 
-                    if (res && res.ok) {
-                        launchConfetti();
-                    } else {
-                    }
-
-                    // Show start again button
-                    document.getElementById("startAgainRow").style.display = "flex";
-                })
-                .withFailureHandler((err) => {
-                    // Hide loader and show error
-                    document.getElementById("submitSubtitle").textContent = "Something went wrong";
-                    setStatus("status5", "❌ Error: " + (err?.message || err), "error");
-
-                    // Show start again button
-                    document.getElementById("startAgainRow").style.display = "flex";
-                })
-                .submitValentine(data);
-        } else {
-            // For local testing - just show success
-            console.log("Data to submit:", data);
-            setTimeout(() => {
-                // Hide loader and update status
+            if (result && result.ok) {
                 launchConfetti();
+                setStatus("status5", "");
+            } else {
+                setStatus("status5", "Submitted but got unexpected response", "notice");
+            }
 
-                // Show start again button
-                document.getElementById("startAgainRow").style.display = "flex";
-            }, 1000);
+            // Show start again button
+            document.getElementById("startAgainRow").style.display = "flex";
+
+        } catch (err) {
+            console.error("Submission error:", err);
+            setStatus("status5", "❌ Error: " + err.message, "error");
+
+            // Show start again button anyway
+            document.getElementById("startAgainRow").style.display = "flex";
         }
     }
 
