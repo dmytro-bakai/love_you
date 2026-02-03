@@ -1,0 +1,1718 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <title>Valentine – Extended</title>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap");
+
+        :root {
+            --rose: #ff8fa3;
+            --rose-strong: #ff6b8f;
+            --peach: #ffd0c2;
+            --cream: #fff4ef;
+            --ink: #2a1a1e;
+            --card: rgba(255, 255, 255, 0.92);
+            --shadow: 0 20px 60px rgba(60, 16, 40, 0.22);
+            --outline: rgba(255, 255, 255, 0.6);
+            --accent: #ff4f7b;
+            --accent-2: #ff8a5b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            height: 100%;
+            height: -webkit-fill-available;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Manrope", "Segoe UI", sans-serif;
+            color: var(--ink);
+            background-image: radial-gradient(1200px circle at 10% 10%, rgba(255, 255, 255, 0.5), transparent 55%),
+            radial-gradient(900px circle at 90% 0%, rgba(255, 214, 224, 0.8), transparent 60%),
+            linear-gradient(135deg, #ff9fb4 0%, #ffb9c7 35%, #ffd7c2 100%),
+            radial-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px);
+            background-size: auto, auto, auto, 18px 18px;
+            background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(12px, 3vw, 24px);
+            position: relative;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+            filter: blur(6px);
+            opacity: 0.85;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::before {
+            top: -140px;
+            right: -120px;
+        }
+
+        body::after {
+            bottom: -160px;
+            left: -140px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 888px;
+            background: var(--card);
+            border-radius: clamp(16px, 4vw, 28px);
+            box-shadow: var(--shadow);
+            padding: clamp(20px, 5vw, 34px) clamp(16px, 4vw, 30px) clamp(20px, 4vw, 30px);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--outline);
+            backdrop-filter: blur(6px);
+            animation: cardIn 0.6s ease;
+            z-index: 1;
+            max-height: calc(100vh - clamp(24px, 6vw, 48px));
+            max-height: calc(100dvh - clamp(24px, 6vw, 48px));
+            margin: auto;
+        }
+
+        .card::before,
+        .card::after {
+            content: "";
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        .card::before {
+            right: -90px;
+            top: -120px;
+        }
+
+        .card::after {
+            left: -110px;
+            bottom: -130px;
+        }
+
+        h1 {
+            margin: 0 0 12px 0;
+            font-size: clamp(28px, 4vw, 38px);
+            line-height: 1.1;
+            font-family: "Quicksand", "Manrope", sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .subtitle {
+            margin: 0 0 18px 0;
+            opacity: 0.82;
+            font-weight: 500;
+            font-size: clamp(14px, 3.5vw, 16px);
+        }
+
+        .row {
+            display: flex;
+            gap: clamp(8px, 2vw, 12px);
+            flex-wrap: wrap;
+            margin-top: 16px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        button {
+            border: 0;
+            border-radius: 16px;
+            padding: clamp(12px, 3vw, 14px) clamp(18px, 4vw, 20px);
+            min-height: 44px;
+            font-size: clamp(15px, 3.5vw, 16px);
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            color: #fff;
+            box-shadow: 0 12px 24px rgba(255, 79, 123, 0.35);
+            transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            touch-action: manipulation;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            button:hover {
+                transform: translateY(-1px);
+                filter: brightness(1.02);
+                box-shadow: 0 14px 28px rgba(255, 79, 123, 0.4);
+            }
+        }
+
+        button:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        button.secondary {
+            background: rgba(255, 255, 255, 0.86);
+            color: var(--ink);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: none;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            button.secondary:hover {
+                background: rgba(255, 255, 255, 0.95);
+                transform: translateY(-1px);
+            }
+        }
+
+        button:focus-visible {
+            outline: 3px solid rgba(255, 79, 123, 0.35);
+            outline-offset: 2px;
+        }
+
+        .page {
+            display: none;
+            width: 100%;
+        }
+
+        .page.active {
+            display: block;
+            animation: pageIn 0.45s ease;
+        }
+
+        .page > * {
+            max-width: 100%;
+        }
+
+        .options {
+            margin: 14px auto 0;
+            display: grid;
+            gap: 10px;
+            max-width: 100%;
+            text-align: left;
+        }
+
+        .calc-grid {
+            margin: 16px auto 0;
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            max-width: 100%;
+        }
+
+        .calc-grid label {
+            display: grid;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(42, 26, 30, 0.75);
+            text-align: left;
+        }
+
+        .photo-grid {
+            margin: 16px auto 0;
+            display: grid;
+            gap: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            max-width: 100%;
+        }
+
+        .photo-grid img {
+            width: 100%;
+            border-radius: 18px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+            object-fit: cover;
+            aspect-ratio: 4 / 3;
+        }
+
+        .opt {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 14px);
+            min-height: 44px;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+            animation: optionIn 0.45s ease both;
+            animation-delay: calc(var(--i, 1) * 70ms);
+            cursor: pointer;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            touch-action: manipulation;
+            font-size: clamp(14px, 3.5vw, 16px);
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .opt:hover {
+                transform: translateY(-1px);
+            }
+        }
+
+        .opt.selected {
+            background: linear-gradient(120deg, rgba(255, 243, 247, 0.98), rgba(255, 235, 229, 0.96));
+            border-color: rgba(255, 79, 123, 0.4);
+            box-shadow: 0 10px 24px rgba(255, 114, 148, 0.24);
+        }
+
+        .opt:focus-within {
+            border-color: rgba(255, 79, 123, 0.6);
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            transform: scale(1.15);
+            accent-color: var(--accent);
+            cursor: pointer;
+            min-width: 20px;
+            min-height: 20px;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        input[type="number"] {
+            width: 100%;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            padding: 12px 14px;
+            min-height: 44px;
+            font-size: 16px;
+            font-family: "Manrope", "Segoe UI", sans-serif;
+            background: rgba(255, 255, 255, 0.85);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="number"]:focus {
+            border-color: rgba(255, 79, 123, 0.5);
+            box-shadow: 0 0 0 3px rgba(255, 79, 123, 0.15);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 140px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            padding: 12px 14px;
+            font-size: 16px;
+            font-family: "Manrope", "Segoe UI", sans-serif;
+            resize: vertical;
+            outline: none;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 0 auto;
+            display: block;
+        }
+
+        textarea:focus {
+            border-color: rgba(255, 79, 123, 0.5);
+            box-shadow: 0 0 0 3px rgba(255, 79, 123, 0.15);
+        }
+
+        .status {
+            margin-top: 12px;
+            font-size: 15px;
+            opacity: 0.9;
+            min-height: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .status.notice,
+        .status.error {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+        }
+
+        .status.notice {
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(255, 79, 123, 0.24);
+            color: rgba(42, 26, 30, 0.88);
+            box-shadow: 0 8px 18px rgba(255, 114, 148, 0.2);
+        }
+
+        .status.error {
+            background: rgba(255, 235, 240, 0.95);
+            border: 1px solid rgba(190, 40, 80, 0.35);
+            color: #9b1f45;
+        }
+
+        .status.pop {
+            animation: statusPop 0.25s ease;
+        }
+
+        .loader {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 3px solid rgba(0, 0, 0, 0.12);
+            border-top-color: var(--accent);
+            display: none;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+
+        .loader.active {
+            display: block;
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+        .page h1,
+        .page .subtitle {
+            text-align: center;
+        }
+
+        .page .options,
+        .page .calc-grid,
+        .page .photo-grid,
+        .page textarea {
+            text-align: left;
+        }
+
+        .no-wrap {
+            position: relative;
+            display: inline-block;
+            transition: transform 0.12s ease;
+        }
+
+        .no-wrap.nope {
+            animation: nope 0.2s ease;
+        }
+
+        .no-btn {
+            background: rgba(255, 255, 255, 0.92);
+            color: var(--ink);
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .hover-flip {
+            position: absolute;
+            left: 50%;
+            top: -36px;
+            transform: translateX(-50%) rotate(180deg);
+            background: rgba(17, 17, 17, 0.92);
+            color: #fff;
+            padding: 8px 10px;
+            border-radius: 12px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.12s ease;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .no-wrap:hover .hover-flip {
+                opacity: 1;
+            }
+        }
+
+        .progress {
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 10px;
+            background: rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border-radius: 999px;
+        }
+
+        .bar {
+            height: 100%;
+            width: 9.09%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            transition: width 0.2s ease;
+            border-radius: 999px;
+        }
+
+        .progress-label {
+            margin-top: 12px;
+            font-size: 12px;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, 0.45);
+        }
+
+        .confetti {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .confetti span {
+            position: absolute;
+            top: -10vh;
+            width: 10px;
+            height: 14px;
+            border-radius: 2px;
+            opacity: 0.95;
+            animation: confettiFall 1.8s ease-out forwards;
+        }
+
+        .global-notification {
+            position: fixed;
+            bottom: clamp(16px, 4vw, 24px);
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            max-width: 500px;
+            width: calc(100% - clamp(24px, 6vw, 48px));
+            padding: clamp(12px, 3vw, 14px) clamp(16px, 4vw, 20px);
+            background: rgba(17, 17, 17, 0.95);
+            color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            font-size: clamp(15px, 3.5vw, 16px);
+            font-weight: 500;
+            text-align: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            line-height: 1.4;
+        }
+
+        .global-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes optionIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes statusPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.97);
+            }
+            70% {
+                opacity: 1;
+                transform: scale(1.03);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes nope {
+            0% {
+                transform: translateX(0);
+            }
+            30% {
+                transform: translateX(-4px);
+            }
+            60% {
+                transform: translateX(4px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        #reasonsOptions::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #reasonsOptions::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        #reasonsOptions::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        #reasonsOptions::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-2);
+        }
+
+        /* Tablet adjustments */
+        @media (min-width: 521px) and (max-width: 1024px) {
+            .card {
+                max-width: 720px;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .calc-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Mobile-specific adjustments (phones only) - by width OR height */
+        @media (max-width: 520px), (max-height: 850px) and (max-width: 900px) {
+            body {
+                padding: 8px;
+                height: 100vh;
+                height: 100dvh;
+            }
+
+            .card {
+                max-width: 520px;
+                border-radius: 16px;
+                padding: 28px 20px 24px;
+                max-height: calc(100vh - 16px);
+                max-height: calc(100dvh - 16px);
+            }
+
+            h1 {
+                font-size: clamp(26px, 7vw, 36px);
+                margin-bottom: 12px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+                margin-bottom: 18px;
+            }
+
+            button {
+                padding: 16px 24px;
+                font-size: 16px;
+                min-height: 52px;
+            }
+
+            .row {
+                gap: 12px;
+            }
+
+            .opt {
+                padding: 14px 16px;
+                font-size: 16px;
+                min-height: 52px;
+            }
+
+            .photo-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                max-height: 50vh;
+                overflow-y: auto;
+                padding-right: 8px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .calc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .global-notification {
+                bottom: 16px;
+                width: calc(100% - 32px);
+                font-size: 16px;
+                padding: 14px 18px;
+            }
+
+            #reasonsOptions {
+                max-height: 45vh;
+            }
+
+            input[type="radio"],
+            input[type="checkbox"] {
+                transform: scale(1.3);
+                min-width: 24px;
+                min-height: 24px;
+            }
+
+            /* Prevent zoom on iOS when focusing inputs */
+            input[type="number"],
+            textarea {
+                font-size: 16px;
+                padding: 14px 16px;
+                min-height: 52px;
+            }
+
+            .status {
+                font-size: 16px;
+                margin-top: 14px;
+            }
+        }
+
+        /* iOS Safari specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            html {
+                height: -webkit-fill-available;
+            }
+
+            body {
+                min-height: -webkit-fill-available;
+                height: -webkit-fill-available;
+                padding-top: max(12px, env(safe-area-inset-top));
+                padding-bottom: max(12px, env(safe-area-inset-bottom));
+                padding-left: max(12px, env(safe-area-inset-left));
+                padding-right: max(12px, env(safe-area-inset-right));
+            }
+
+            .card {
+                max-height: calc(100vh - max(24px, env(safe-area-inset-top)) - max(24px, env(safe-area-inset-bottom)));
+                max-height: calc(100dvh - max(24px, env(safe-area-inset-top)) - max(24px, env(safe-area-inset-bottom)));
+            }
+
+            .global-notification {
+                bottom: max(16px, env(safe-area-inset-bottom));
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="card">
+    <div class="progress" style="display: none;">
+        <div class="bar" id="bar"></div>
+    </div>
+    <div class="progress-label" id="progressLabel" style="display: none;">Step 1 of 11</div>
+
+    <!-- Page 1 -->
+    <section class="page active centered" id="page1">
+        <h1>Yulia will you be my valentine?</h1>
+        <img id="page1Image" src="https://storage.googleapis.com/images-10-1-20/shy.jpg"
+             alt="Shy"
+             style="max-width: min(300px, 90vw); width: 100%; border-radius: 18px; margin: 16px auto; height: auto; display: block;"/>
+
+        <div class="row" style="justify-content:center;">
+            <button id="yesBtn">Yes</button>
+
+            <span class="no-wrap" id="noWrap">
+            <button class="no-btn" id="noBtn" title="Nope 🙂">No</button>
+          </span>
+        </div>
+
+        <div class="status" id="status1"></div>
+    </section>
+
+    <!-- Page 2 -->
+    <section class="page" id="page2">
+        <h1>What you wanna eat?</h1>
+        <p class="subtitle">Pick one:</p>
+
+        <div class="options" id="foodOptions">
+            <label class="opt" style="--i: 1"><input type="radio" name="food" value="sushi"/> Sushi</label>
+            <label class="opt" style="--i: 2"><input type="radio" name="food" value="salad"/> Salad</label>
+            <label class="opt" style="--i: 3"><input type="radio" name="food" value="pizza"/> Pizza</label>
+            <label class="opt" style="--i: 4"><input type="radio" name="food" value="pasta"/> Pasta</label>
+            <label class="opt" style="--i: 5"><input type="radio" name="food" value="I don't know"/> I don't
+                know</label>
+        </div>
+
+        <div class="row">
+            <button class="secondary" id="back2">Back</button>
+            <button id="next2">Next</button>
+        </div>
+
+        <div class="status" id="status2"></div>
+    </section>
+
+    <!-- Page 3 -->
+    <section class="page centered" id="page3">
+        <h1>Do you love me?</h1>
+
+        <img id="sadImage" src="" alt=""
+             style="max-width: min(300px, 90vw); width: 100%; border-radius: 18px; margin: 16px auto; height: auto; display: none;"/>
+
+        <div class="row">
+            <button id="loveYes">Yes</button>
+            <button class="secondary" id="loveNo">No</button>
+        </div>
+
+        <div class="row">
+            <button class="secondary" id="back3">Back</button>
+        </div>
+
+        <div class="status" id="status3"></div>
+    </section>
+
+    <!-- Page 4 (Are you sure?) -->
+    <section class="page centered" id="pageAreYouSure">
+        <h1>Are you sure?</h1>
+
+        <img id="thinkImage" src="" alt=""
+             style="max-width: min(300px, 90vw); width: 100%; border-radius: 18px; margin: 16px auto; height: auto; display: none;"/>
+
+        <div class="row">
+            <button id="sureYes">Yes</button>
+            <button class="secondary" id="sureNo">No</button>
+        </div>
+
+        <div class="row">
+            <button class="secondary" id="backAreYouSure">Back</button>
+        </div>
+
+        <div class="status" id="statusAreYouSure"></div>
+    </section>
+
+    <!-- Page 5 -->
+    <section class="page" id="page4">
+        <h1>List all things why you love me</h1>
+
+        <div class="options" id="reasonsOptions"
+             style="max-height: 50vh; overflow-y: auto; padding-right: 8px; -webkit-overflow-scrolling: touch;">
+            <label class="opt"><input type="checkbox" name="reasons" value="Your smile lights up my day"/> Your smile
+                lights up my day</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You make me laugh"/> You make me
+                laugh</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your kindness to everyone"/> Your kindness
+                to everyone</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="The way you look at me"/> The way you look
+                at me</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your intelligence"/> Your
+                intelligence</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You support my dreams"/> You support my
+                dreams</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your sense of humor"/> Your sense of
+                humor</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You're always there for me"/> You're always
+                there for me</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your beautiful eyes"/> Your beautiful
+                eyes</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="The way you care about people"/> The way you
+                care about people</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your creativity"/> Your creativity</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You listen to me"/> You listen to me</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your determination"/> Your
+                determination</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="The way you dance"/> The way you
+                dance</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your cooking skills"/> Your cooking
+                skills</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You understand me"/> You understand
+                me</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your adventurous spirit"/> Your adventurous
+                spirit</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="The way you comfort me"/> The way you
+                comfort me</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your passion for life"/> Your passion for
+                life</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You make me a better person"/> You make me a
+                better person</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your honesty"/> Your honesty</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="The way you style your hair"/> The way you
+                style your hair</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your confidence"/> Your confidence</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You believe in me"/> You believe in
+                me</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your gentle touch"/> Your gentle
+                touch</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="The way you sing"/> The way you sing</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your positive attitude"/> Your positive
+                attitude</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You're my best friend"/> You're my best
+                friend</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your independence"/> Your
+                independence</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="The way you surprise me"/> The way you
+                surprise me</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your loyalty"/> Your loyalty</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You inspire me daily"/> You inspire me daily</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your fashion sense"/> Your fashion
+                sense</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="The way you hold my hand"/> The way you hold
+                my hand</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your empathy"/> Your empathy</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You challenge me to grow"/> You challenge me
+                to grow</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your laugh is contagious"/> Your laugh is
+                contagious</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="The way you say my name"/> The way you say
+                my name</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your ambition"/> Your ambition</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You accept me for who I am"/> You accept me
+                for who I am</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your warmth"/> Your warmth</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="The way you dream big"/> The way you dream
+                big</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your thoughtfulness"/> Your
+                thoughtfulness</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You make ordinary moments special"/> You
+                make ordinary moments special</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your resilience"/> Your resilience</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="The way you cuddle"/> The way you
+                cuddle</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your open-mindedness"/> Your open-mindedness</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You share your world with me"/> You share
+                your world with me</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="Your unique personality"/> Your unique
+                personality</label>
+            <label class="opt"><input type="checkbox" name="reasons" value="You're simply perfect for me"/> You're
+                simply perfect for me</label>
+        </div>
+
+        <div class="row">
+            <button class="secondary" id="back4">Back</button>
+            <button id="next4">Next</button>
+        </div>
+
+        <div class="status" id="status4"></div>
+    </section>
+
+    <!-- Page 5 (Quick quiz) -->
+    <section class="page" id="page9">
+        <h1>Quick quizz about your home city Bila Tserkva</h1>
+        <p class="subtitle">When was the city founded?</p>
+        <div class="options" id="quizOptions">
+            <label class="opt" style="--i: 1"><input type="radio" name="quiz" value="988"/> 988</label>
+            <label class="opt" style="--i: 2"><input type="radio" name="quiz" value="1240"/> 1240</label>
+            <label class="opt" style="--i: 3"><input type="radio" name="quiz" value="1569"/> 1569</label>
+            <label class="opt" style="--i: 4"><input type="radio" name="quiz" value="1793"/> 1793</label>
+        </div>
+        <div class="row">
+            <button class="secondary" id="back5">Back</button>
+            <button id="next5">Next</button>
+        </div>
+        <div class="status" id="status9"></div>
+    </section>
+
+    <!-- Page 6 (Favorite treat) -->
+    <section class="page" id="page6">
+        <h1>What's your favorite sweet treat?</h1>
+        <p class="subtitle">Pick one:</p>
+        <div class="options" id="treatOptions">
+            <label class="opt" style="--i: 1"><input type="radio" name="treat" value="Chocolate"/> Chocolate</label>
+            <label class="opt" style="--i: 2"><input type="radio" name="treat" value="Glazed curd bar"/> Glazed curd bar</label>
+            <label class="opt" style="--i: 3"><input type="radio" name="treat" value="Cookies"/> Cookies</label>
+            <label class="opt" style="--i: 4"><input type="radio" name="treat" value="Ice cream"/> Ice cream</label>
+            <label class="opt" style="--i: 5"><input type="radio" name="treat" value="Fruit"/> Fruit</label>
+        </div>
+        <div class="row">
+            <button class="secondary" id="back6">Back</button>
+            <button id="next6">Next</button>
+        </div>
+        <div class="status" id="status6"></div>
+    </section>
+
+    <!-- Page 7 (Calculator) -->
+    <section class="page" id="page11">
+        <h1>Here my last work project, check it out:</h1>
+        <p class="subtitle">This is a tool to sum two numbers</p>
+
+        <div class="calc-grid" style="margin-top: 24px;">
+            <label>
+                First number
+                <input type="number" id="calcA" inputmode="numeric"/>
+            </label>
+            <label>
+                Second number
+                <input type="number" id="calcB" inputmode="numeric"/>
+            </label>
+        </div>
+
+        <div class="row" style="margin-top: 20px;">
+            <button id="calcBtn">Calculate</button>
+        </div>
+
+        <div style="min-height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 16px;">
+            <div class="loader" id="calcLoader" aria-hidden="true"></div>
+            <div class="status" id="status10" style="margin-top: 8px;"></div>
+        </div>
+
+        <div class="row" style="margin-top: 24px;">
+            <button class="secondary" id="back11">Back</button>
+            <button id="next11">Next</button>
+        </div>
+    </section>
+
+    <!-- Page 8 (Photos) -->
+    <section class="page" id="page10">
+        <h1>Yulia, you asked me to share a photos of monitor, sorry for delay here it is:</h1>
+        <div class="photo-grid">
+            <img src="https://storage.googleapis.com/images-10-1-20/image.jpg" alt="Monitor photo 1" loading="lazy"/>
+            <img src="https://storage.googleapis.com/images-10-1-20/image2.jpg" alt="Monitor photo 2" loading="lazy"/>
+            <img src="https://storage.googleapis.com/images-10-1-20/image3.jpg" alt="Monitor photo 3" loading="lazy"/>
+        </div>
+        <div class="row">
+            <button class="secondary" id="back10">Back</button>
+            <button id="next10">Next</button>
+        </div>
+        <div class="status" id="status10a"></div>
+    </section>
+
+    <!-- Page 9 (Ideal date) -->
+    <section class="page" id="page7">
+        <h1>Your ideal Valentine’s date?</h1>
+        <p class="subtitle">Pick one:</p>
+        <div class="options" id="dateOptions">
+            <label class="opt" style="--i: 1"><input type="radio" name="date"
+                                                     value="Romantic dinner at a fancy restaurant"/> Romantic dinner at
+                a fancy restaurant</label>
+            <label class="opt" style="--i: 2"><input type="radio" name="date"
+                                                     value="Movie night at home with homemade dinner"/> Movie night at
+                home with homemade dinner</label>
+            <label class="opt" style="--i: 3"><input type="radio" name="date" value="Adventurous outdoor activity"/>
+                Adventurous outdoor activity</label>
+            <label class="opt" style="--i: 4"><input type="radio" name="date" value="Cozy night playing games"/> Cozy
+                night playing games</label>
+        </div>
+        <div class="row">
+            <button class="secondary" id="back7">Back</button>
+            <button id="next7">Next</button>
+        </div>
+        <div class="status" id="status7"></div>
+    </section>
+
+    <!-- Page 10 (Flower choice) -->
+    <section class="page" id="page8">
+        <h1>What flower would be special for you on this day?</h1>
+        <p class="subtitle">Pick one:</p>
+        <div class="options" id="flowerOptions">
+            <label class="opt" style="--i: 1"><input type="radio" name="flower" value="Daisies"/> Daisies</label>
+            <label class="opt" style="--i: 2"><input type="radio" name="flower" value="Tulips"/> Tulips</label>
+            <label class="opt" style="--i: 3"><input type="radio" name="flower" value="Roses"/> Roses</label>
+            <label class="opt" style="--i: 4"><input type="radio" name="flower" value="Gypsophila"/> Gypsophila</label>
+        </div>
+        <div class="row">
+            <button class="secondary" id="back8">Back</button>
+            <button id="next8">Next</button>
+        </div>
+        <div class="status" id="status8"></div>
+    </section>
+
+    <!-- Page 11 (Dating Timer) -->
+    <section class="page centered" id="pageDating">
+        <h1>Interesting fact we have been dating for:</h1>
+
+        <div class="status" id="statusDating"></div>
+
+        <div style="margin: 24px auto; max-width: 100%;">
+            <div id="datingTimer"></div>
+        </div>
+
+        <div class="row" style="justify-content:center;">
+            <button class="secondary" id="backDating">Back</button>
+            <button id="nextDating">Next</button>
+        </div>
+    </section>
+
+    <!-- Page 12 (Finish) -->
+    <section class="page centered" id="page5">
+        <h1>Love you so much</h1>
+        <div class="status" id="status5"></div>
+
+        <div class="row" style="display: none; margin-top: 20px;" id="startAgainRow">
+            <button id="startAgainBtn">Start again</button>
+        </div>
+    </section>
+</div>
+<div class="confetti" id="confetti" aria-hidden="true"></div>
+
+<!-- Global notification at bottom of screen -->
+<div class="global-notification" id="globalNotification"></div>
+
+<!-- Audio elements -->
+<audio id="bruhSound" preload="auto">
+    <source src="https://storage.googleapis.com/images-10-1-20/Bruh%20sound%20effect.mp3" type="audio/mpeg">
+</audio>
+<audio id="huhSound" preload="auto">
+    <source src="https://storage.googleapis.com/images-10-1-20/Huh%20Sound%20Effect.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // --- State (in memory) ---
+    const data = {
+        valentineAnswer: "",
+        foodChoice: "",
+        loveAnswer: "",
+        loveReasons: "",
+        reasonsCount: 0,
+        quizGuess: "",
+        treatChoice: "",
+        dateIdea: "",
+        flowerChoice: "",
+        timestamp: ""
+    };
+
+    // --- Helpers ---
+    // Order of pages: 0: page1, 1: page2, 2: page3, 3: pageAreYouSure, 4: page4, 5: page9, 6: page6, 7: page11, 8: page7, 9: page10, 10: page8, 11: pageDating, 12: page5
+    const pages = [
+        document.getElementById("page1"),
+        document.getElementById("page2"),
+        document.getElementById("page3"),
+        document.getElementById("pageAreYouSure"),
+        document.getElementById("page4"),
+        document.getElementById("page9"),
+        document.getElementById("page6"),
+        document.getElementById("page11"),
+        document.getElementById("page7"),
+        document.getElementById("page10"),
+        document.getElementById("page8"),
+        document.getElementById("pageDating"),
+        document.getElementById("page5")
+    ];
+    const bar = document.getElementById("bar");
+    const progressLabel = document.getElementById("progressLabel");
+    const confettiHost = document.getElementById("confetti");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let datingTimerInterval;
+    const selectionMessages = {
+        food: {
+            sushi: "True shinobi 🍣",
+            salad: "\"Hey Silpo, I want to order all the broccoli you have.\" 🥦",
+            pizza: "Domino's servers are about to go down 🍕",
+            pasta: "Let's make Italians happy with classic chicken & pineapple pasta🇮🇹",
+            "I don't know": "Classic. Shouldn't even ask."
+        },
+        treat: {
+            "Chocolate": "Sweet 🍫",
+            "Glazed curd bar": "Soft & cozy 🧀🍫",
+            "Cookies": "Warm & cute 🍪",
+            "Ice cream": "Cold & fun 🍦",
+            "Fruit": "Fresh & light 🍓"
+        },
+        date: {
+            "Romantic dinner at a fancy restaurant": "You deserve it ✨",
+            "Movie night at home with homemade dinner": "Nice choice — let's pick a movie, watch 1 hour, and fall asleep halfway 🎬😴",
+            "Adventurous outdoor activity": "Akademmistechko is the safest place for a night walk 🌙",
+            "Cozy night playing games": "Mongols don't stand a chance 🎮🔥"
+        },
+        quiz: {
+            "988": "Actually correct answer is 1032, I will not tell anyone, don't worry.",
+            "1240": "Actually correct answer is 1032, I will not tell anyone, don't worry.",
+            "1569": "Actually correct answer is 1032, I will not tell anyone, don't worry.",
+            "1793": "Actually correct answer is 1032, I will not tell anyone, don't worry."
+        },
+        flower: {
+            "Daisies": "We can make some tea from them later 🌼",
+            "Tulips": "I'll try my best 🌷",
+            "Roses": "Nice try — you don't like them 😉",
+            "Gypsophila": "Quietly beautiful 🤍"
+        }
+    };
+
+    function showPage(n) {
+        pages.forEach((p, i) => p.classList.toggle("active", i === n));
+        // Calculate progress based on number of pages
+        const percent = ((n + 1) / pages.length) * 100;
+        bar.style.width = percent + "%";
+        progressLabel.textContent = `Step ${n + 1} of ${pages.length}`;
+
+        // Reset page 1 when returning to it
+        if (n === 0) {
+            noClickCount = 0;
+            const noWrap = document.getElementById("noWrap");
+            const page1Image = document.getElementById("page1Image");
+            if (noWrap) {
+                noWrap.style.transform = "translate(0, 0)";
+            }
+            if (page1Image) {
+                page1Image.src = "https://storage.googleapis.com/images-10-1-20/shy.jpg";
+            }
+            setStatus("status1", "");
+        }
+
+        // Reset "Are you sure?" page when returning to it
+        if (n === 3) {
+            const thinkImage = document.getElementById("thinkImage");
+            if (thinkImage) {
+                thinkImage.style.display = "none";
+            }
+            const sureYes = document.getElementById("sureYes");
+            const sureNo = document.getElementById("sureNo");
+            const backAreYouSure = document.getElementById("backAreYouSure");
+            if (sureYes) sureYes.style.display = "inline-block";
+            if (sureNo) sureNo.style.display = "inline-block";
+            if (backAreYouSure) backAreYouSure.style.display = "inline-block";
+            setStatus("statusAreYouSure", "");
+        }
+
+        // Start/stop dating timer
+        if (n === 11) {
+            // Starting dating timer page
+            updateDatingTimer();
+            datingTimerInterval = setInterval(updateDatingTimer, 1000);
+        } else {
+            // Leaving dating timer page
+            if (datingTimerInterval) {
+                clearInterval(datingTimerInterval);
+            }
+        }
+    }
+
+    function selectedRadio(name) {
+        const el = document.querySelector(`input[name="${name}"]:checked`);
+        return el ? el.value : "";
+    }
+
+    function setStatus(id, message, tone = "notice") {
+        const el = document.getElementById(id);
+        if (!el) {
+            return;
+        }
+        el.textContent = message;
+        el.classList.remove("notice", "error", "pop");
+        if (!message) {
+            return;
+        }
+        el.classList.add(tone === "error" ? "error" : "notice", "pop");
+        if (!prefersReducedMotion) {
+            setTimeout(() => el.classList.remove("pop"), 260);
+        }
+    }
+
+    let notificationTimer;
+
+    function showNotification(message) {
+        const notification = document.getElementById("globalNotification");
+        if (!notification) return;
+
+        // Clear any existing timer
+        clearTimeout(notificationTimer);
+
+        // Set message and show
+        notification.textContent = message;
+        notification.classList.add("show");
+
+        // Hide after 3 seconds
+        notificationTimer = setTimeout(() => {
+            notification.classList.remove("show");
+        }, 3000);
+    }
+
+    function setupOptionSelection(containerId, statusId, messageMap) {
+        const container = document.getElementById(containerId);
+        if (!container) {
+            return;
+        }
+        container.addEventListener("change", (event) => {
+            if (event.target.matches('input[type="radio"]')) {
+                container.querySelectorAll(".opt").forEach((label) => {
+                    label.classList.remove("selected");
+                });
+                const selected = event.target.closest(".opt");
+                if (selected) {
+                    selected.classList.add("selected");
+                }
+                if (statusId) {
+                    const message = (messageMap && messageMap[event.target.value]) || "Cute choice ✨";
+                    setStatus(statusId, message);
+                }
+            } else if (event.target.matches('input[type="checkbox"]')) {
+                const selected = event.target.closest(".opt");
+                if (selected) {
+                    if (event.target.checked) {
+                        selected.classList.add("selected");
+                    } else {
+                        selected.classList.remove("selected");
+                    }
+                }
+            }
+        });
+    }
+
+    function launchConfetti() {
+        if (prefersReducedMotion || !confettiHost) {
+            return;
+        }
+        confettiHost.innerHTML = "";
+        const colors = ["#ff4f7b", "#ff8a5b", "#ffd36e", "#ffffff"];
+        const count = 40;
+        for (let i = 0; i < count; i += 1) {
+            const piece = document.createElement("span");
+            const size = 8 + Math.random() * 8;
+            piece.style.width = `${size}px`;
+            piece.style.height = `${size * 1.2}px`;
+            piece.style.left = `${Math.random() * 100}%`;
+            piece.style.background = colors[i % colors.length];
+            piece.style.transform = `translateY(-10vh) rotate(${Math.random() * 180}deg)`;
+            piece.style.animationDuration = `${1.4 + Math.random() * 1.3}s`;
+            piece.style.animationDelay = `${Math.random() * 0.2}s`;
+            piece.style.opacity = `${0.7 + Math.random() * 0.3}`;
+            confettiHost.appendChild(piece);
+        }
+        setTimeout(() => {
+            confettiHost.innerHTML = "";
+        }, 3000);
+    }
+
+    setupOptionSelection("foodOptions", "status2", selectionMessages.food);
+    setupOptionSelection("quizOptions", "status9", selectionMessages.quiz);
+    setupOptionSelection("treatOptions", "status6", selectionMessages.treat);
+    setupOptionSelection("dateOptions", "status7", selectionMessages.date);
+    setupOptionSelection("flowerOptions", "status8", selectionMessages.flower);
+    setupOptionSelection("reasonsOptions", null, null);
+
+    let noClickCount = 0;
+    const noWrap = document.querySelector(".no-wrap");
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (noWrap && !isTouchDevice) {
+        // Only apply hover effect on non-touch devices
+        noWrap.addEventListener("mouseenter", () => {
+            if (prefersReducedMotion || noClickCount > 0) {
+                return;
+            }
+            // Get button and container dimensions
+            const btnRect = noWrap.getBoundingClientRect();
+            const containerRect = document.querySelector('.card').getBoundingClientRect();
+
+            // Calculate available space to move within the container
+            const maxX = containerRect.width - btnRect.width - 40; // 40px padding
+            const maxY = containerRect.height - btnRect.height - 40;
+
+            // Generate random position within the container
+            const x = (Math.random() * maxX) - (maxX / 2);
+            const y = (Math.random() * maxY) - (maxY / 2);
+
+            noWrap.style.transform = `translate(${x}px, ${y}px)`;
+            noWrap.classList.add("nope");
+            setTimeout(() => noWrap.classList.remove("nope"), 180);
+        });
+        noWrap.addEventListener("mouseleave", () => {
+            if (noClickCount === 0) {
+                noWrap.style.transform = "translate(0, 0)";
+            }
+        });
+    }
+
+    const calcBtn = document.getElementById("calcBtn");
+    const calcLoader = document.getElementById("calcLoader");
+    const calcA = document.getElementById("calcA");
+    const calcB = document.getElementById("calcB");
+    let calcTimer;
+
+    calcBtn.addEventListener("click", () => {
+        const a = calcA.value.trim();
+        const b = calcB.value.trim();
+        if (!a || !b) {
+            setStatus("status10", "Enter two numbers 🙂", "error");
+            return;
+        }
+        setStatus("status10", "using AI tools to done this calculation");
+        calcBtn.disabled = true;
+        calcLoader.classList.add("active");
+        clearTimeout(calcTimer);
+        calcTimer = setTimeout(() => {
+            calcLoader.classList.remove("active");
+            calcBtn.disabled = false;
+            setStatus("status10", `Result: ${a}${b}`);
+        }, 5000);
+    });
+
+    // --- Page 1 ---
+    document.getElementById("yesBtn").addEventListener("click", () => {
+        data.valentineAnswer = "yes";
+        launchConfetti();
+        setTimeout(() => showPage(1), 300);
+    });
+
+    document.getElementById("noBtn").addEventListener("click", (e) => {
+        e.preventDefault();
+        noClickCount++;
+
+        if (noClickCount === 1) {
+            // Shift the button to the right by 50px
+            const noWrap = document.getElementById("noWrap");
+            noWrap.style.transform = "translateX(50px)";
+            noWrap.style.transition = "transform 0.3s ease";
+
+            // Change the image
+            const page1Image = document.getElementById("page1Image");
+            page1Image.src = "https://storage.googleapis.com/images-10-1-20/what.jpeg";
+
+            // Show the message
+            setStatus("status1", "We will talk about this at home...");
+        }
+    });
+
+    // --- Page 2 ---
+    document.getElementById("back2").addEventListener("click", () => showPage(0));
+
+    document.getElementById("next2").addEventListener("click", () => {
+        const choice = selectedRadio("food");
+        if (!choice) {
+            setStatus("status2", "Please pick something 🙂", "error");
+            return;
+        }
+        data.foodChoice = choice;
+        showPage(2);
+        showNotification("You are doing great so far. Only 30 pages left! 😉");
+    });
+
+    // --- Page 3 ---
+    document.getElementById("back3").addEventListener("click", () => showPage(1));
+
+    document.getElementById("loveYes").addEventListener("click", () => {
+        data.loveAnswer = "yes";
+        showPage(3); // go to "Are you sure?" page
+        showNotification("Yay! That's what I wanted to hear! 💖");
+    });
+
+    document.getElementById("loveNo").addEventListener("click", () => {
+        data.loveAnswer = "no";
+        data.loveReasons = ""; // skip reasons
+
+        // Play bruh sound
+        const bruhSound = document.getElementById("bruhSound");
+        if (bruhSound) {
+            bruhSound.currentTime = 0;
+            bruhSound.play().catch(err => console.log("Audio play failed:", err));
+        }
+
+        // Show the image and message
+        const sadImage = document.getElementById("sadImage");
+        sadImage.src = "https://storage.googleapis.com/images-10-1-20/dog.jpeg";
+        sadImage.style.display = "block";
+        setStatus("status3", "Let's try one more time");
+
+        // Hide the buttons
+        document.getElementById("loveYes").style.display = "none";
+        document.getElementById("loveNo").style.display = "none";
+        document.getElementById("back3").style.display = "none";
+
+        // After 3 seconds, go back to page 1
+        setTimeout(() => {
+            // Reset the page 3 elements
+            sadImage.style.display = "none";
+            document.getElementById("loveYes").style.display = "inline-block";
+            document.getElementById("loveNo").style.display = "inline-block";
+            document.getElementById("back3").style.display = "inline-block";
+            setStatus("status3", "");
+
+            // Go back to first page
+            showPage(0);
+        }, 3000);
+    });
+
+    // --- Page 4 (Are you sure?) ---
+    document.getElementById("backAreYouSure").addEventListener("click", () => showPage(2));
+
+    document.getElementById("sureYes").addEventListener("click", () => {
+        showPage(4); // go to reasons page
+        showNotification("Love you too 💕");
+    });
+
+    document.getElementById("sureNo").addEventListener("click", () => {
+        // Play huh sound
+        const huhSound = document.getElementById("huhSound");
+        if (huhSound) {
+            huhSound.currentTime = 0;
+            huhSound.play().catch(err => console.log("Audio play failed:", err));
+        }
+
+        // Show the image and message
+        const thinkImage = document.getElementById("thinkImage");
+        thinkImage.src = "https://storage.googleapis.com/images-10-1-20/really.jpg";
+        thinkImage.style.display = "block";
+        setStatus("statusAreYouSure", "Then think one more time please");
+
+        // Hide the buttons
+        document.getElementById("sureYes").style.display = "none";
+        document.getElementById("sureNo").style.display = "none";
+        document.getElementById("backAreYouSure").style.display = "none";
+
+        // After 3 seconds, reset and go back to "Do you love me?" page
+        setTimeout(() => {
+            // Reset the page elements
+            thinkImage.style.display = "none";
+            document.getElementById("sureYes").style.display = "inline-block";
+            document.getElementById("sureNo").style.display = "inline-block";
+            document.getElementById("backAreYouSure").style.display = "inline-block";
+            setStatus("statusAreYouSure", "");
+
+            // Go back to "Do you love me?" page
+            showPage(2);
+        }, 3000);
+    });
+
+    // --- Page 5 ---
+    document.getElementById("back4").addEventListener("click", () => showPage(3));
+
+    document.getElementById("next4").addEventListener("click", () => {
+        const checkedBoxes = document.querySelectorAll('input[name="reasons"]:checked');
+        const count = checkedBoxes.length;
+
+        if (data.loveAnswer === "yes" && count === 0) {
+            setStatus("status4", "Pick at least one reason 😄", "error");
+            return;
+        }
+
+        const reasons = Array.from(checkedBoxes).map(cb => cb.value).join(", ");
+        data.loveReasons = reasons;
+        data.reasonsCount = count;
+
+        showPage(5); // proceed to quick quiz
+        showNotification(`Oh, only ${count}? 😏`);
+    });
+
+    // --- Page 6 (Quick quiz) ---
+    document.getElementById("back5").addEventListener("click", () => showPage(4));
+
+    document.getElementById("next5").addEventListener("click", () => {
+        const guess = selectedRadio("quiz");
+        if (!guess) {
+            setStatus("status9", "Pick your best guess 🙂", "error");
+            return;
+        }
+        data.quizGuess = guess;
+        showPage(6);
+        showNotification("Nice try! Moving on... 🤓");
+    });
+
+    // --- Page 7 (Favorite treat) ---
+    document.getElementById("back6").addEventListener("click", () => showPage(5));
+
+    document.getElementById("next6").addEventListener("click", () => {
+        const treat = selectedRadio("treat");
+        if (!treat) {
+            setStatus("status6", "Please pick a treat 🙂", "error");
+            return;
+        }
+        data.treatChoice = treat;
+        showPage(7);
+        showNotification("Yummy choice! Let's continue 🍬");
+    });
+
+    // --- Page 8 (Calculator) ---
+    document.getElementById("back11").addEventListener("click", () => showPage(6));
+
+    document.getElementById("next11").addEventListener("click", () => {
+        showPage(8);
+        showNotification("Hope you enjoyed my work!");
+    });
+
+    // --- Page 8 (Ideal date) ---
+    document.getElementById("back7").addEventListener("click", () => showPage(7));
+
+    document.getElementById("next7").addEventListener("click", () => {
+        const idea = selectedRadio("date");
+        if (!idea) {
+            setStatus("status7", "Please pick an idea 🙂", "error");
+            return;
+        }
+        data.dateIdea = idea;
+        showPage(9);
+        showNotification("Can't wait for that date! 💕");
+    });
+
+    // --- Page 9 (Photos) ---
+    document.getElementById("back10").addEventListener("click", () => showPage(8));
+
+    document.getElementById("next10").addEventListener("click", () => {
+        showPage(10);
+        showNotification("Finally showed you those monitors! 📸");
+    });
+
+    // --- Page 11 (Flower choice) ---
+    document.getElementById("back8").addEventListener("click", () => showPage(9));
+
+    document.getElementById("next8").addEventListener("click", () => {
+        const flower = selectedRadio("flower");
+        if (!flower) {
+            setStatus("status8", "Please pick a flower 🙂", "error");
+            return;
+        }
+        data.flowerChoice = flower;
+        showPage(11);
+        showNotification("Almost there! One more step... 🎉");
+    });
+
+    // --- Page 12 (Dating Timer) ---
+    function updateDatingTimer() {
+        const startDate = new Date(2025, 9, 5, 21, 0, 0); // October 5, 2025, 21:00 (month is 0-indexed)
+        const now = new Date();
+        const diff = now - startDate;
+
+        // Calculate time units
+        const totalSeconds = Math.floor(diff / 1000);
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const totalHours = Math.floor(totalMinutes / 60);
+        const totalDays = Math.floor(totalHours / 24);
+
+        // Calculate months and remaining days
+        let months = 0;
+        let tempDate = new Date(startDate);
+        while (tempDate.getMonth() !== now.getMonth() || tempDate.getFullYear() !== now.getFullYear()) {
+            tempDate.setMonth(tempDate.getMonth() + 1);
+            if (tempDate <= now) {
+                months++;
+            } else {
+                break;
+            }
+        }
+
+        // Calculate remaining time
+        const monthStart = new Date(startDate);
+        monthStart.setMonth(monthStart.getMonth() + months);
+        const remainingDiff = now - monthStart;
+
+        const days = Math.floor(remainingDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((remainingDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((remainingDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remainingDiff % (1000 * 60)) / 1000);
+
+        const timerEl = document.getElementById("datingTimer");
+        if (timerEl) {
+            timerEl.innerHTML = `
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); gap: clamp(8px, 2vw, 16px); text-align: center;">
+              <div style="background: rgba(255, 255, 255, 0.5); padding: clamp(8px, 2vw, 12px); border-radius: 12px;">
+                <div style="font-size: clamp(24px, 6vw, 32px); font-weight: 700; color: var(--accent);">${months}</div>
+                <div style="font-size: clamp(11px, 2.5vw, 13px); color: rgba(0, 0, 0, 0.6); margin-top: 4px;">${months === 1 ? 'Month' : 'Months'}</div>
+              </div>
+              <div style="background: rgba(255, 255, 255, 0.5); padding: clamp(8px, 2vw, 12px); border-radius: 12px;">
+                <div style="font-size: clamp(24px, 6vw, 32px); font-weight: 700; color: var(--accent);">${days}</div>
+                <div style="font-size: clamp(11px, 2.5vw, 13px); color: rgba(0, 0, 0, 0.6); margin-top: 4px;">${days === 1 ? 'Day' : 'Days'}</div>
+              </div>
+              <div style="background: rgba(255, 255, 255, 0.5); padding: clamp(8px, 2vw, 12px); border-radius: 12px;">
+                <div style="font-size: clamp(24px, 6vw, 32px); font-weight: 700; color: var(--accent);">${hours}</div>
+                <div style="font-size: clamp(11px, 2.5vw, 13px); color: rgba(0, 0, 0, 0.6); margin-top: 4px;">${hours === 1 ? 'Hour' : 'Hours'}</div>
+              </div>
+              <div style="background: rgba(255, 255, 255, 0.5); padding: clamp(8px, 2vw, 12px); border-radius: 12px;">
+                <div style="font-size: clamp(24px, 6vw, 32px); font-weight: 700; color: var(--accent);">${minutes}</div>
+                <div style="font-size: clamp(11px, 2.5vw, 13px); color: rgba(0, 0, 0, 0.6); margin-top: 4px;">${minutes === 1 ? 'Minute' : 'Minutes'}</div>
+              </div>
+              <div style="background: rgba(255, 255, 255, 0.5); padding: clamp(8px, 2vw, 12px); border-radius: 12px;">
+                <div style="font-size: clamp(24px, 6vw, 32px); font-weight: 700; color: var(--accent);">${seconds}</div>
+                <div style="font-size: clamp(11px, 2.5vw, 13px); color: rgba(0, 0, 0, 0.6); margin-top: 4px;">${seconds === 1 ? 'Second' : 'Seconds'}</div>
+              </div>
+            </div>
+          `;
+        }
+    }
+
+    document.getElementById("backDating").addEventListener("click", () => showPage(10));
+
+    document.getElementById("nextDating").addEventListener("click", () => {
+        showPage(12);
+        submitData();
+    });
+
+    // --- Page 13 (Auto-submit) ---
+    function submitData() {
+
+        // Add timestamp
+        data.timestamp = new Date().toISOString();
+
+        // Check if google.script.run is available (Google Apps Script environment)
+        if (typeof google !== 'undefined' && google.script && google.script.run) {
+            google.script.run
+                .withSuccessHandler((res) => {
+                    // Hide loader and update status
+
+                    if (res && res.ok) {
+                        launchConfetti();
+                    } else {
+                    }
+
+                    // Show start again button
+                    document.getElementById("startAgainRow").style.display = "flex";
+                })
+                .withFailureHandler((err) => {
+                    // Hide loader and show error
+                    document.getElementById("submitSubtitle").textContent = "Something went wrong";
+                    setStatus("status5", "❌ Error: " + (err?.message || err), "error");
+
+                    // Show start again button
+                    document.getElementById("startAgainRow").style.display = "flex";
+                })
+                .submitValentine(data);
+        } else {
+            // For local testing - just show success
+            console.log("Data to submit:", data);
+            setTimeout(() => {
+                // Hide loader and update status
+                launchConfetti();
+
+                // Show start again button
+                document.getElementById("startAgainRow").style.display = "flex";
+            }, 1000);
+        }
+    }
+
+    // Start again button handler
+    document.getElementById("startAgainBtn").addEventListener("click", () => {
+        // Reload the page
+        location.reload();
+    });
+
+    showPage(0);
+</script>
+</body>
+</html>
